@@ -71,6 +71,10 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .frame img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;min-width:0;
  object-fit:contain;filter:drop-shadow(var(--hang));transition:transform .3s cubic-bezier(.2,.7,.3,1)}
 .card:hover .frame img,.card:focus-visible .frame img{transform:translateY(-4px)}
+.set{height:100%;width:100%;display:flex;gap:4px;align-items:flex-end;justify-content:center}
+.set span{flex:1 1 0;min-width:0;display:flex;align-items:flex-end;justify-content:center}
+.set img{max-width:100%;max-height:100%;width:auto;height:auto;min-width:0;
+ object-fit:contain;filter:drop-shadow(var(--hang))}
 .soon{width:100%;height:100%;display:grid;place-items:center;background:var(--wall-2);
  border:1px dashed var(--hair);font-size:12.5px;color:var(--muted)}
 .cap{padding-top:14px;display:grid;gap:3px}
@@ -97,11 +101,13 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .stage{margin-top:20px;padding:4px 0 32px;border-bottom:1px solid var(--hair);
  display:grid;place-items:center}
 .stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang))}
-.pair{width:100%}
-.pair img{max-height:46vh}
 .stage .soon{height:240px}
-.pair{display:flex;gap:16px;align-items:flex-end;justify-content:center;
- flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}
+.pair{width:100%;display:flex;gap:2.4%;align-items:flex-end;justify-content:center;
+ flex-wrap:nowrap}
+.pair span{flex:1 1 0;min-width:0;display:flex;align-items:flex-end;justify-content:center}
+.pair img{max-width:100%;max-height:56vh;width:auto;height:auto;min-width:0;
+ object-fit:contain}
+.pair.n2 img{max-height:60vh}
 .d-no{font-size:10.5px;color:var(--muted);margin-top:30px}
 .d-title{font-family:"Noto Serif KR",serif;font-weight:600;
  font-size:clamp(26px,6vw,38px);line-height:1.28;letter-spacing:-.02em;margin:10px 0 0}

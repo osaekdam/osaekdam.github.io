@@ -244,7 +244,7 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--hair);font-si
 
 <section>
   <h2>의견 남기기<span class="mono">OPINION</span></h2>
-  <p class="desc">위에서 마음에 드는 시안을 고르시고, 고쳤으면 하는 점을 적어주세요. 아래 버튼을 누르면 내용이 복사됩니다. 카카오톡이나 문자에 붙여넣어 보내주시면 됩니다.</p>
+  <p class="desc">위에서 마음에 드는 시안을 고르시고, 고쳤으면 하는 점을 적어주세요. 다 적으시면 <b>보내기</b>를 눌러주세요. 바로 전달됩니다. 카카오톡으로 보내고 싶으시면 옆의 복사 버튼을 쓰시면 됩니다.</p>
   <div class="form">
     <div class="row">
       <label class="l" for="who">성함</label>
@@ -270,8 +270,8 @@ footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--hair);font-si
       <textarea id="txt" placeholder="예) 1번이 좋습니다. 제목을 조금 더 키워주시고, QR은 왼쪽에 두면 어떨까요."></textarea>
     </div>
     <div class="btns">
-      <button class="btn" id="copy">의견 복사하기</button>
-      <button class="btn alt" id="mail">메일로 보내기</button>
+      <button class="btn" id="send">보내기</button>
+      <button class="btn alt" id="copy">복사해서 카톡으로</button>
     </div>
     <p class="ok" id="ok"></p>
   </div>
@@ -324,23 +324,59 @@ function compose() {
   return s;
 }
 
-$('copy').onclick = async () => {
-  const s = compose();
-  try {
-    await navigator.clipboard.writeText(s);
-    $('ok').textContent = '복사했습니다. 카카오톡이나 문자에 붙여넣어 보내주세요.';
-  } catch (e) {
+async function copyText(s) {
+  try { await navigator.clipboard.writeText(s); return true; }
+  catch (e) {
     const t = document.createElement('textarea');
     t.value = s; t.style.position = 'fixed'; t.style.opacity = '0';
     document.body.appendChild(t); t.select();
-    try { document.execCommand('copy'); $('ok').textContent = '복사했습니다. 카카오톡이나 문자에 붙여넣어 보내주세요.'; }
-    catch (e2) { $('ok').textContent = '복사가 되지 않았습니다. 아래 내용을 길게 눌러 직접 복사해 주세요.'; }
+    let ok = false;
+    try { ok = document.execCommand('copy'); } catch (e2) {}
     document.body.removeChild(t);
+    return ok;
   }
+}
+
+$('copy').onclick = async () => {
+  const ok = await copyText(compose());
+  $('ok').textContent = ok
+    ? '복사했습니다. 카카오톡이나 문자에 붙여넣어 보내주세요.'
+    : '복사가 되지 않았습니다. 위 내용을 직접 적어 보내주세요.';
 };
 
-$('mail').onclick = () => {
-  location.href = 'mailto:?subject=' + encodeURIComponent('작품 캡션 시안 의견')
-    + '&body=' + encodeURIComponent(compose());
+$('send').onclick = async () => {
+  const p = document.querySelector('input[name=pick]:checked');
+  const txt = $('txt').value.trim();
+  if (!p && !txt) { $('ok').textContent = '시안을 고르시거나 의견을 적어주세요.'; return; }
+  const btn = $('send');
+  btn.disabled = true; btn.textContent = '보내는 중';
+  const opts = Array.from(document.querySelectorAll('.opt'));
+  try {
+    const r = await fetch('https://formspree.io/f/mkjgnjrq', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        '성함': $('who').value.trim() || '(미기재)',
+        '고른 시안': p ? p.value : '(고르지 않음)',
+        '넣을 항목': opts.filter(o => o.checked).map(o => o.value).join(', ') || '(없음)',
+        '뺄 항목': opts.filter(o => !o.checked).map(o => o.value).join(', ') || '(없음)',
+        '의견': txt || '(없음)'
+      })
+    });
+    if (r.ok) {
+      $('ok').textContent = '보냈습니다. 감사합니다.';
+      btn.textContent = '보냈습니다';
+    } else {
+      throw new Error('fail');
+    }
+  } catch (e) {
+    btn.disabled = false; btn.textContent = '보내기';
+    const ok = await copyText(compose());
+    $('ok').textContent = ok
+      ? '전송이 되지 않아 내용을 복사해 두었습니다. 카카오톡에 붙여넣어 보내주세요.'
+      : '전송이 되지 않았습니다. 잠시 후 다시 시도해 주세요.';
+  }
 };
 </script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>

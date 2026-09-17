@@ -66,15 +66,16 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));align-items:start}
 .card{display:flex;flex-direction:column}
 .card[hidden]{display:none!important}
+.card.ph .cap-t{color:var(--muted)}
 .frame{height:240px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;
  padding-bottom:14px;border-bottom:1px solid var(--hair)}
 .frame img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;min-width:0;
  object-fit:contain;filter:drop-shadow(var(--hang));transition:transform .3s cubic-bezier(.2,.7,.3,1)}
 .card:hover .frame img,.card:focus-visible .frame img{transform:translateY(-4px)}
-.set{height:100%;width:100%;display:flex;gap:4px;align-items:flex-end;justify-content:center}
-.set span{flex:1 1 0;min-width:0;display:flex;align-items:flex-end;justify-content:center}
-.set img{max-width:100%;max-height:100%;width:auto;height:auto;min-width:0;
- object-fit:contain;filter:drop-shadow(var(--hang))}
+.set{height:100%;width:100%;display:flex;gap:4px;align-items:stretch;justify-content:center}
+.set span{flex-basis:0;min-width:0;display:block;height:100%}
+.set img{width:100%;height:100%;object-fit:contain;object-position:bottom;
+ filter:drop-shadow(var(--hang))}
 .soon{width:100%;height:100%;display:grid;place-items:center;background:var(--wall-2);
  border:1px dashed var(--hair);font-size:12.5px;color:var(--muted)}
 .cap{padding-top:14px;display:grid;gap:3px}
@@ -102,12 +103,11 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
  display:grid;place-items:center}
 .stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang))}
 .stage .soon{height:240px}
-.pair{width:100%;display:flex;gap:2.4%;align-items:flex-end;justify-content:center;
- flex-wrap:nowrap}
-.pair span{flex:1 1 0;min-width:0;display:flex;align-items:flex-end;justify-content:center}
-.pair img{max-width:100%;max-height:56vh;width:auto;height:auto;min-width:0;
- object-fit:contain}
-.pair.n2 img{max-height:60vh}
+.pair{width:min(96%, calc(56vh * var(--r)));aspect-ratio:var(--r);
+ display:flex;gap:2.4%;align-items:stretch;justify-content:center;flex-wrap:nowrap}
+.pair.n2{width:min(96%, calc(60vh * var(--r)))}
+.pair span{flex-basis:0;min-width:0;display:block;height:100%}
+.pair img{width:100%;height:100%;object-fit:contain;object-position:bottom}
 .d-no{font-size:10.5px;color:var(--muted);margin-top:30px}
 .d-title{font-family:"Noto Serif KR",serif;font-weight:600;
  font-size:clamp(26px,6vw,38px);line-height:1.28;letter-spacing:-.02em;margin:10px 0 0}

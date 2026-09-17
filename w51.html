@@ -12,6 +12,7 @@
   <div class="stage"><img src="img/51_정진화_장막책가도.jpg" alt="장막책가도"></div>
   <div class="d-no mono">NO. 51</div>
   <div class="d-title">장막책가도</div>
+  
   <div class="d-artist">정진화</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지 분채 봉채 금분</dd></div><div><dt>크기</dt><dd>68.5 × 140 cm</dd></div></dl>
   <div class="audio" id="au" hidden>
@@ -22,6 +23,15 @@
   <audio id="ak" preload="none" src="audio/51.mp3"></audio>
   <div class="body"><p>여러 층으로 짜인 책장 안에 청동기와 화병, 찻잔을 늘어놓고 푸른 휘장을 둘렀습니다. 가로 백사십 센티미터의 큰 화면입니다.</p><p>그릇들은 학식과 문기, 장수와 평안을 뜻합니다. 화병의 꽃과 석류, 복숭아는 자손의 번창과 오래 사는 삶을 가리킵니다.</p><p>공작 깃털은 높은 벼슬을 뜻하는 대표적인 길상 무늬입니다.</p></div>
   <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <details class="fix">
+    <summary>이 작품의 사진이나 설명을 고치고 싶으신가요</summary>
+    <div class="in">
+      <input type="text" id="fn" placeholder="성함">
+      <textarea id="ft" placeholder="예) 사진을 다시 보내드리겠습니다. 제목이 잘못되었습니다. 설명에서 이 부분을 고쳐주세요."></textarea>
+      <button type="button" id="fb">보내기</button>
+      <p class="ok" id="fo"></p>
+    </div>
+  </details>
   <div class="nav"><a href="w50.html">← 책거리 매화, 연화 (2폭)</a><a href="w52.html">책거리 용, 봉황 (2폭) →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
@@ -49,6 +59,28 @@
   });
   a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
   a.addEventListener('pause',function(){ state(false); });
+
+  var fb=document.getElementById('fb');
+  if(fb) fb.onclick=function(){
+    var t=document.getElementById('ft').value.trim();
+    var o=document.getElementById('fo');
+    if(!t){ o.textContent='내용을 적어주세요.'; return; }
+    fb.disabled=true; fb.textContent='보내는 중';
+    fetch('https://formspree.io/f/mkjgnjrq',{
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({
+        '작품':'51 정진화 · 장막책가도',
+        '성함':document.getElementById('fn').value.trim()||'(미기재)',
+        '내용':t
+      })
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      o.textContent='보냈습니다. 고맙습니다.'; fb.textContent='보냈습니다';
+    }).catch(function(){
+      fb.disabled=false; fb.textContent='보내기';
+      o.textContent='보내지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    });
+  };
 })();
 </script>
 <script data-goatcounter="https://osaekdam.goatcounter.com/count"

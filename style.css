@@ -65,6 +65,7 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .grid{margin-top:34px;display:grid;gap:50px 32px;
  grid-template-columns:repeat(auto-fill,minmax(190px,1fr));align-items:start}
 .card{display:flex;flex-direction:column}
+.card[hidden]{display:none!important}
 .frame{height:240px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center;
  padding-bottom:14px;border-bottom:1px solid var(--hair)}
 .frame img{max-height:100%;max-width:100%;width:auto;height:auto;min-height:0;min-width:0;
@@ -95,12 +96,30 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .stage{margin-top:20px;padding:4px 0 32px;border-bottom:1px solid var(--hair);
  display:grid;place-items:center}
 .stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang))}
+.pair{width:100%}
+.pair img{max-height:46vh}
 .stage .soon{height:240px}
-.pair{display:flex;gap:20px;align-items:flex-end;justify-content:center;flex-wrap:wrap}
+.pair{display:flex;gap:16px;align-items:flex-end;justify-content:center;
+ flex-wrap:nowrap;overflow-x:auto;padding-bottom:6px}
 .d-no{font-size:10.5px;color:var(--muted);margin-top:30px}
 .d-title{font-family:"Noto Serif KR",serif;font-weight:600;
  font-size:clamp(26px,6vw,38px);line-height:1.28;letter-spacing:-.02em;margin:10px 0 0}
+.d-sub{font-size:14px;color:var(--muted);margin-top:8px}
 .d-artist{font-size:15px;margin-top:14px}
+.fix{margin-top:18px}
+.fix summary{font-size:13px;color:var(--muted);cursor:pointer;list-style:none;
+ padding:10px 0;border-top:1px solid var(--hair)}
+.fix summary::-webkit-details-marker{display:none}
+.fix summary::before{content:"＋ ";font-family:"IBM Plex Mono",monospace}
+.fix[open] summary::before{content:"－ "}
+.fix .in{padding:4px 0 8px}
+.fix input,.fix textarea{width:100%;padding:11px 13px;border:1px solid var(--hair);
+ border-radius:4px;background:var(--card);color:var(--ink);font-family:inherit;
+ font-size:14.5px;font-weight:300;margin-bottom:10px}
+.fix textarea{min-height:88px;resize:vertical}
+.fix button{padding:11px 20px;border:1px solid var(--ink);background:var(--ink);
+ color:var(--wall);border-radius:4px;font-size:14px}
+.fix .ok{margin:10px 0 0;font-size:13px;color:var(--muted);min-height:1.2em}
 .spec{margin-top:24px;border-top:1px solid var(--hair)}
 .spec div{display:flex;gap:18px;padding:11px 0;border-bottom:1px solid var(--hair);font-size:14.5px}
 .spec dt{flex:0 0 52px;font-size:10.5px;color:var(--muted);

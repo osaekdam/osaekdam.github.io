@@ -12,6 +12,7 @@
   <div class="stage"><img src="img/57_유미화_화람도.jpg" alt="화람도"></div>
   <div class="d-no mono">NO. 57</div>
   <div class="d-title">화람도</div>
+  
   <div class="d-artist">유미화</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>39 × 60 cm</dd></div></dl>
   <div class="audio" id="au" hidden>
@@ -22,6 +23,15 @@
   <audio id="ak" preload="none" src="audio/57.mp3"></audio>
   <div class="body"><p>바구니에 꽃을 가득 담았습니다. 모란과 나리, 국화가 서로 기대어 넘칠 듯 피었습니다.</p><p>송나라 때 그려진 작자 미상의 화람도를 바탕으로, 꽃과 바구니의 모양과 색을 충실히 되살린 작품입니다.</p><p>가득 담긴 꽃에 아름다움과 생명력, 풍요에 대한 바람을 담았습니다.</p></div>
   <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <details class="fix">
+    <summary>이 작품의 사진이나 설명을 고치고 싶으신가요</summary>
+    <div class="in">
+      <input type="text" id="fn" placeholder="성함">
+      <textarea id="ft" placeholder="예) 사진을 다시 보내드리겠습니다. 제목이 잘못되었습니다. 설명에서 이 부분을 고쳐주세요."></textarea>
+      <button type="button" id="fb">보내기</button>
+      <p class="ok" id="fo"></p>
+    </div>
+  </details>
   <div class="nav"><a href="w56.html">← 화조도(맨드라미)</a><a href="w58.html">화접지희 →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
@@ -49,6 +59,28 @@
   });
   a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
   a.addEventListener('pause',function(){ state(false); });
+
+  var fb=document.getElementById('fb');
+  if(fb) fb.onclick=function(){
+    var t=document.getElementById('ft').value.trim();
+    var o=document.getElementById('fo');
+    if(!t){ o.textContent='내용을 적어주세요.'; return; }
+    fb.disabled=true; fb.textContent='보내는 중';
+    fetch('https://formspree.io/f/mkjgnjrq',{
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({
+        '작품':'57 유미화 · 화람도',
+        '성함':document.getElementById('fn').value.trim()||'(미기재)',
+        '내용':t
+      })
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      o.textContent='보냈습니다. 고맙습니다.'; fb.textContent='보냈습니다';
+    }).catch(function(){
+      fb.disabled=false; fb.textContent='보내기';
+      o.textContent='보내지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    });
+  };
 })();
 </script>
 <script data-goatcounter="https://osaekdam.goatcounter.com/count"

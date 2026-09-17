@@ -12,6 +12,7 @@
   <div class="stage"><img src="img/36_박정윤_봉황도鳳凰圖Phoenix.jpg" alt="봉황도 鳳凰圖 | Phoenix"></div>
   <div class="d-no mono">NO. 36</div>
   <div class="d-title">봉황도 鳳凰圖 | Phoenix</div>
+  
   <div class="d-artist">박정윤</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>47 × 28 cm</dd></div></dl>
   <div class="audio" id="au" hidden>
@@ -22,6 +23,15 @@
   <audio id="ak" preload="none" src="audio/36.mp3"></audio>
   <div class="body"><p>봉황 한 쌍이 화면 오른쪽을 채우고, 왼쪽 위로 보라색 오동 꽃이 매달려 내려옵니다. 그 아래로 붉은 해가 떠 있습니다.</p><p>봉황은 어질고 평화로운 시대에만 나타난다는 상상의 새입니다. 오동나무에만 앉고 대나무 열매만 먹는다고 전해져, 오동과 대나무를 늘 함께 그립니다.</p><p>봉은 수컷이고 황은 암컷이라 반드시 쌍으로 그립니다. 부부의 화합을 뜻합니다.</p></div>
   <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <details class="fix">
+    <summary>이 작품의 사진이나 설명을 고치고 싶으신가요</summary>
+    <div class="in">
+      <input type="text" id="fn" placeholder="성함">
+      <textarea id="ft" placeholder="예) 사진을 다시 보내드리겠습니다. 제목이 잘못되었습니다. 설명에서 이 부분을 고쳐주세요."></textarea>
+      <button type="button" id="fb">보내기</button>
+      <p class="ok" id="fo"></p>
+    </div>
+  </details>
   <div class="nav"><a href="w35.html">← 효제문자도 (2폭) 孝悌文字圖 Filial Piety and Brotherly Love</a><a href="w37.html">모란도 →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
@@ -49,6 +59,28 @@
   });
   a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
   a.addEventListener('pause',function(){ state(false); });
+
+  var fb=document.getElementById('fb');
+  if(fb) fb.onclick=function(){
+    var t=document.getElementById('ft').value.trim();
+    var o=document.getElementById('fo');
+    if(!t){ o.textContent='내용을 적어주세요.'; return; }
+    fb.disabled=true; fb.textContent='보내는 중';
+    fetch('https://formspree.io/f/mkjgnjrq',{
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({
+        '작품':'36 박정윤 · 봉황도 鳳凰圖 | Phoenix',
+        '성함':document.getElementById('fn').value.trim()||'(미기재)',
+        '내용':t
+      })
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      o.textContent='보냈습니다. 고맙습니다.'; fb.textContent='보냈습니다';
+    }).catch(function(){
+      fb.disabled=false; fb.textContent='보내기';
+      o.textContent='보내지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    });
+  };
 })();
 </script>
 <script data-goatcounter="https://osaekdam.goatcounter.com/count"

@@ -12,6 +12,7 @@
   <div class="stage"><img src="img/60_이미경_모란괴석도.jpg" alt="모란괴석도"></div>
   <div class="d-no mono">NO. 60</div>
   <div class="d-title">모란괴석도</div>
+  
   <div class="d-artist">이미경</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채·봉채</dd></div><div><dt>크기</dt><dd>57 × 96 cm</dd></div></dl>
   <div class="audio" id="au" hidden>
@@ -22,6 +23,15 @@
   <audio id="ak" preload="none" src="audio/60.mp3"></audio>
   <div class="body"><p>울퉁불퉁한 돌 위로 모란이 한 줄로 늘어서 피었습니다. 분홍과 살구빛과 흰 꽃이 번갈아 놓이고, 화면 위쪽은 시원하게 비워두었습니다.</p><p>모란은 꽃 중의 왕이라 불릴 만큼 부귀를 상징합니다. 곁의 괴석은 비바람을 맞아도 모양이 변하지 않으니 오래 사는 삶을 빗댄 것입니다.</p><p>옛사람들이 가장 바랐던 두 가지를 한 화면에 나란히 올려놓은 셈입니다.</p></div>
   <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <details class="fix">
+    <summary>이 작품의 사진이나 설명을 고치고 싶으신가요</summary>
+    <div class="in">
+      <input type="text" id="fn" placeholder="성함">
+      <textarea id="ft" placeholder="예) 사진을 다시 보내드리겠습니다. 제목이 잘못되었습니다. 설명에서 이 부분을 고쳐주세요."></textarea>
+      <button type="button" id="fb">보내기</button>
+      <p class="ok" id="fo"></p>
+    </div>
+  </details>
   <div class="nav"><a href="w59.html">← 옥당부귀도</a><a href="w61.html">작품 추가 예정 →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
@@ -49,6 +59,28 @@
   });
   a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
   a.addEventListener('pause',function(){ state(false); });
+
+  var fb=document.getElementById('fb');
+  if(fb) fb.onclick=function(){
+    var t=document.getElementById('ft').value.trim();
+    var o=document.getElementById('fo');
+    if(!t){ o.textContent='내용을 적어주세요.'; return; }
+    fb.disabled=true; fb.textContent='보내는 중';
+    fetch('https://formspree.io/f/mkjgnjrq',{
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({
+        '작품':'60 이미경 · 모란괴석도',
+        '성함':document.getElementById('fn').value.trim()||'(미기재)',
+        '내용':t
+      })
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      o.textContent='보냈습니다. 고맙습니다.'; fb.textContent='보냈습니다';
+    }).catch(function(){
+      fb.disabled=false; fb.textContent='보내기';
+      o.textContent='보내지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    });
+  };
 })();
 </script>
 <script data-goatcounter="https://osaekdam.goatcounter.com/count"

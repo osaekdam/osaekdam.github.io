@@ -12,6 +12,7 @@
   <div class="stage"><img src="img/35_박정윤_효제문자도(2폭)孝悌文字圖FilialPietyandBrotherlyLove.jpg" alt="효제문자도 (2폭) 孝悌文字圖 Filial Piety and Brotherly Love"></div>
   <div class="d-no mono">NO. 35</div>
   <div class="d-title">효제문자도 (2폭) 孝悌文字圖 Filial Piety and Brotherly Love</div>
+  
   <div class="d-artist">박정윤</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>각56 × 32 cm</dd></div></dl>
   <div class="audio" id="au" hidden>
@@ -22,6 +23,15 @@
   <audio id="ak" preload="none" src="audio/35.mp3"></audio>
   <div class="body"><p>검은 글씨가 화면 가운데를 가로지르는데, 획 안쪽이 모두 그림입니다. 한 폭에는 잉어와 부채와 거문고가, 다른 폭에는 흰 연꽃과 죽순과 석류가 들어 있습니다.</p><p>효와 제는 유학이 가장 앞에 두었던 두 낱말입니다. 부모를 섬기는 마음과 형제 사이의 우애입니다.</p><p>획 속 소재는 장식이 아니라 이야기입니다. 잉어는 얼어붙은 강을 깨고 어머니께 드릴 물고기를 잡은 왕상의 이야기이고, 죽순은 한겨울에 대나무 순을 찾아 헤맨 맹종의 이야기입니다.</p></div>
   <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <details class="fix">
+    <summary>이 작품의 사진이나 설명을 고치고 싶으신가요</summary>
+    <div class="in">
+      <input type="text" id="fn" placeholder="성함">
+      <textarea id="ft" placeholder="예) 사진을 다시 보내드리겠습니다. 제목이 잘못되었습니다. 설명에서 이 부분을 고쳐주세요."></textarea>
+      <button type="button" id="fb">보내기</button>
+      <p class="ok" id="fo"></p>
+    </div>
+  </details>
   <div class="nav"><a href="w34.html">← 청화백자 초화문병 靑畫白磁 | Blue-and-White Bottle with Flowering Vine</a><a href="w36.html">봉황도 鳳凰圖 | Phoenix →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
@@ -49,6 +59,28 @@
   });
   a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
   a.addEventListener('pause',function(){ state(false); });
+
+  var fb=document.getElementById('fb');
+  if(fb) fb.onclick=function(){
+    var t=document.getElementById('ft').value.trim();
+    var o=document.getElementById('fo');
+    if(!t){ o.textContent='내용을 적어주세요.'; return; }
+    fb.disabled=true; fb.textContent='보내는 중';
+    fetch('https://formspree.io/f/mkjgnjrq',{
+      method:'POST', headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({
+        '작품':'35 박정윤 · 효제문자도 (2폭) 孝悌文字圖 Filial Piety and Brotherly Love',
+        '성함':document.getElementById('fn').value.trim()||'(미기재)',
+        '내용':t
+      })
+    }).then(function(r){
+      if(!r.ok) throw 0;
+      o.textContent='보냈습니다. 고맙습니다.'; fb.textContent='보냈습니다';
+    }).catch(function(){
+      fb.disabled=false; fb.textContent='보내기';
+      o.textContent='보내지 못했습니다. 잠시 후 다시 시도해 주세요.';
+    });
+  };
 })();
 </script>
 <script data-goatcounter="https://osaekdam.goatcounter.com/count"

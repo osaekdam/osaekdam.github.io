@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head>
+<title>화조도 · 임영희 · 오색담은 제3회 초대전</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap narrow">
+  <a class="back mono" href="index.html">← 출품작 목록</a>
+  <div class="stage"><img src="img/31_임영희_화조도.jpg" alt="화조도"></div>
+  <div class="d-no mono">NO. 31</div>
+  <div class="d-title">화조도</div>
+  <div class="d-artist">임영희</div>
+  <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>76 × 46 cm</dd></div></dl>
+  <div class="audio" id="au" hidden>
+    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
+  </div>
+  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
+  <p class="note" id="note"></p>
+  <audio id="ak" preload="none" src="audio/31.mp3"></audio>
+  <div class="body"><p>국화가 활짝 피고 붉은 열매가 달린 나무 아래 새 한 쌍이 앉았습니다. 두 마리의 깃털 색이 서로 달라 암수를 알 수 있습니다.</p><p>색이 다른 새를 나란히 그리는 것은 부부의 조화를 뜻합니다. 국화는 지조와 함께 다복과 장수를 바라는 마음을 담습니다.</p></div>
+  <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <div class="nav"><a href="w30.html">← 책거리</a><a href="w32.html">호작도 虎鵲圖 | Tiger and Magpie →</a></div>
+  <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('ak'), box=document.getElementById('au');
+  var b=document.getElementById('pb'), ic=document.getElementById('ic');
+  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  a.addEventListener('error',function(){ box.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  a.load();
+  function state(on){
+    lb.textContent=on?'멈추기':'음성 해설';
+    ic.className=on?'sq':'tri'; bar.hidden=!on;
+  }
+  b.onclick=function(){
+    if(a.paused){
+      a.play().then(function(){ state(true); note.textContent=''; })
+       .catch(function(){ note.textContent='재생할 수 없습니다. 화면을 한 번 누른 뒤 다시 시도해 주세요.'; });
+    } else { a.pause(); state(false); }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+  });
+  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('pause',function(){ state(false); });
+})();
+</script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body></html>

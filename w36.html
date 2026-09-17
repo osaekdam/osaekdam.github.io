@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head>
+<title>봉황도 鳳凰圖 | Phoenix · 박정윤 · 오색담은 제3회 초대전</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap narrow">
+  <a class="back mono" href="index.html">← 출품작 목록</a>
+  <div class="stage"><img src="img/36_박정윤_봉황도鳳凰圖Phoenix.jpg" alt="봉황도 鳳凰圖 | Phoenix"></div>
+  <div class="d-no mono">NO. 36</div>
+  <div class="d-title">봉황도 鳳凰圖 | Phoenix</div>
+  <div class="d-artist">박정윤</div>
+  <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>47 × 28 cm</dd></div></dl>
+  <div class="audio" id="au" hidden>
+    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
+  </div>
+  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
+  <p class="note" id="note"></p>
+  <audio id="ak" preload="none" src="audio/36.mp3"></audio>
+  <div class="body"><p>봉황 한 쌍이 화면 오른쪽을 채우고, 왼쪽 위로 보라색 오동 꽃이 매달려 내려옵니다. 그 아래로 붉은 해가 떠 있습니다.</p><p>봉황은 어질고 평화로운 시대에만 나타난다는 상상의 새입니다. 오동나무에만 앉고 대나무 열매만 먹는다고 전해져, 오동과 대나무를 늘 함께 그립니다.</p><p>봉은 수컷이고 황은 암컷이라 반드시 쌍으로 그립니다. 부부의 화합을 뜻합니다.</p></div>
+  <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <div class="nav"><a href="w35.html">← 효제문자도 (2폭) 孝悌文字圖 Filial Piety and Brotherly Love</a><a href="w37.html">모란도 →</a></div>
+  <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('ak'), box=document.getElementById('au');
+  var b=document.getElementById('pb'), ic=document.getElementById('ic');
+  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  a.addEventListener('error',function(){ box.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  a.load();
+  function state(on){
+    lb.textContent=on?'멈추기':'음성 해설';
+    ic.className=on?'sq':'tri'; bar.hidden=!on;
+  }
+  b.onclick=function(){
+    if(a.paused){
+      a.play().then(function(){ state(true); note.textContent=''; })
+       .catch(function(){ note.textContent='재생할 수 없습니다. 화면을 한 번 누른 뒤 다시 시도해 주세요.'; });
+    } else { a.pause(); state(false); }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+  });
+  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('pause',function(){ state(false); });
+})();
+</script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body></html>

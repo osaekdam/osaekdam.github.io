@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head>
+<title>백수백복도 · 차은정 · 오색담은 제3회 초대전</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap narrow">
+  <a class="back mono" href="index.html">← 출품작 목록</a>
+  <div class="stage"><img src="img/39_차은정_백수백복도.jpg" alt="백수백복도"></div>
+  <div class="d-no mono">NO. 39</div>
+  <div class="d-title">백수백복도</div>
+  <div class="d-artist">차은정</div>
+  <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>45.5 × 33.4 cm</dd></div></dl>
+  <div class="audio" id="au" hidden>
+    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
+  </div>
+  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
+  <p class="note" id="note"></p>
+  <audio id="ak" preload="none" src="audio/39.mp3"></audio>
+  <div class="body"><p>목숨 수 자와 복 복 자를 여러 모양으로 바꾸어 화면 가득 늘어놓았습니다.</p><p>여기서 백은 숫자 백이 아니라 많다, 가득하다는 뜻입니다. 병 없이 오래 살고 복이 넘치며 자손이 번창하기를 바라는 그림입니다.</p><p>글자를 행과 열에 맞춰 배열해 무늬처럼 보이게 한 것이 이 그림의 멋입니다.</p></div>
+  <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <div class="nav"><a href="w38.html">← 고양이</a><a href="w40.html">봉황도 →</a></div>
+  <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('ak'), box=document.getElementById('au');
+  var b=document.getElementById('pb'), ic=document.getElementById('ic');
+  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  a.addEventListener('error',function(){ box.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  a.load();
+  function state(on){
+    lb.textContent=on?'멈추기':'음성 해설';
+    ic.className=on?'sq':'tri'; bar.hidden=!on;
+  }
+  b.onclick=function(){
+    if(a.paused){
+      a.play().then(function(){ state(true); note.textContent=''; })
+       .catch(function(){ note.textContent='재생할 수 없습니다. 화면을 한 번 누른 뒤 다시 시도해 주세요.'; });
+    } else { a.pause(); state(false); }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+  });
+  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('pause',function(){ state(false); });
+})();
+</script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body></html>

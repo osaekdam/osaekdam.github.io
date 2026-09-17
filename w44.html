@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head>
+<title>원앙화조도 · 김송희 · 오색담은 제3회 초대전</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap narrow">
+  <a class="back mono" href="index.html">← 출품작 목록</a>
+  <div class="stage"><img src="img/44_김송희_원앙화조도.jpg" alt="원앙화조도"></div>
+  <div class="d-no mono">NO. 44</div>
+  <div class="d-title">원앙화조도</div>
+  <div class="d-artist">김송희</div>
+  <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>55 × 42 cm</dd></div></dl>
+  <div class="audio" id="au" hidden>
+    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
+  </div>
+  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
+  <p class="note" id="note"></p>
+  <audio id="ak" preload="none" src="audio/44.mp3"></audio>
+  <div class="body"><p>물가에 원앙 한 쌍이 나란히 떠 있고, 그 위로 국화가 피었습니다. 푸른 괴석이 곁을 지킵니다.</p><p>원앙은 부부의 금슬과 화목을 뜻합니다. 함께 그린 연꽃과 물은 맑음과 생명의 근원을 가리킵니다.</p></div>
+  <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <div class="nav"><a href="w43.html">← 황묘농접도</a><a href="w45.html">화조도 →</a></div>
+  <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('ak'), box=document.getElementById('au');
+  var b=document.getElementById('pb'), ic=document.getElementById('ic');
+  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  a.addEventListener('error',function(){ box.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  a.load();
+  function state(on){
+    lb.textContent=on?'멈추기':'음성 해설';
+    ic.className=on?'sq':'tri'; bar.hidden=!on;
+  }
+  b.onclick=function(){
+    if(a.paused){
+      a.play().then(function(){ state(true); note.textContent=''; })
+       .catch(function(){ note.textContent='재생할 수 없습니다. 화면을 한 번 누른 뒤 다시 시도해 주세요.'; });
+    } else { a.pause(); state(false); }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+  });
+  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('pause',function(){ state(false); });
+})();
+</script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body></html>

@@ -1,0 +1,56 @@
+<!doctype html><html lang="ko"><head>
+<title>장막책가도 · 정진화 · 오색담은 제3회 초대전</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="wrap narrow">
+  <a class="back mono" href="index.html">← 출품작 목록</a>
+  <div class="stage"><img src="img/51_정진화_장막책가도.jpg" alt="장막책가도"></div>
+  <div class="d-no mono">NO. 51</div>
+  <div class="d-title">장막책가도</div>
+  <div class="d-artist">정진화</div>
+  <dl class="spec"><div><dt>재료</dt><dd>순지 분채 봉채 금분</dd></div><div><dt>크기</dt><dd>68.5 × 140 cm</dd></div></dl>
+  <div class="audio" id="au" hidden>
+    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
+  </div>
+  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
+  <p class="note" id="note"></p>
+  <audio id="ak" preload="none" src="audio/51.mp3"></audio>
+  <div class="body"><p>여러 층으로 짜인 책장 안에 청동기와 화병, 찻잔을 늘어놓고 푸른 휘장을 둘렀습니다. 가로 백사십 센티미터의 큰 화면입니다.</p><p>그릇들은 학식과 문기, 장수와 평안을 뜻합니다. 화병의 꽃과 석류, 복숭아는 자손의 번창과 오래 사는 삶을 가리킵니다.</p><p>공작 깃털은 높은 벼슬을 뜻하는 대표적인 길상 무늬입니다.</p></div>
+  <p class="ask">이 작품 구입을 원하시면 갤러리 데스크로 말씀해 주세요.</p>
+  <div class="nav"><a href="w50.html">← 책거리 매화, 연화 (2폭)</a><a href="w52.html">책거리 용, 봉황 (2폭) →</a></div>
+  <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
+</div>
+<script>
+(function(){
+  var a=document.getElementById('ak'), box=document.getElementById('au');
+  var b=document.getElementById('pb'), ic=document.getElementById('ic');
+  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  a.addEventListener('error',function(){ box.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  a.load();
+  function state(on){
+    lb.textContent=on?'멈추기':'음성 해설';
+    ic.className=on?'sq':'tri'; bar.hidden=!on;
+  }
+  b.onclick=function(){
+    if(a.paused){
+      a.play().then(function(){ state(true); note.textContent=''; })
+       .catch(function(){ note.textContent='재생할 수 없습니다. 화면을 한 번 누른 뒤 다시 시도해 주세요.'; });
+    } else { a.pause(); state(false); }
+  };
+  a.addEventListener('timeupdate',function(){
+    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+  });
+  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('pause',function(){ state(false); });
+})();
+</script>
+<script data-goatcounter="https://osaekdam.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
+</body></html>

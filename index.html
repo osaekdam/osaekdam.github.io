@@ -9,7 +9,7 @@
 </head><body>
 <div class="wrap">
   <header>
-    <p class="eyebrow mono">오색담은 제3회 초대전</p>
+    <p class="eyebrow">오색담은 제3회 초대전</p>
     <h1>민화, 오색의 휴식</h1>
     <dl class="meta">
       <div><dt>기간</dt><dd>2026. 9. 29 – 10. 25</dd></div>
@@ -49,7 +49,7 @@
     var n=0;
     Array.prototype.forEach.call(grid.children,function(c){
       var on=!who||c.dataset.who===who;
-      c.hidden=!on; if(on)n++;
+      c.hidden=!on; if(on&&!c.classList.contains('ph'))n++;
     });
     cnt.textContent=String(n).padStart(2,'0')+' WORKS';
     btns.forEach(function(b){b.setAttribute('aria-pressed', b.dataset.who===who?'true':'false');});

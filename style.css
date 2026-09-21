@@ -44,6 +44,7 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .greet p:first-child{font-family:"Noto Serif KR",serif;font-weight:500;
  font-size:20px;color:var(--ink);line-height:1.6;margin-bottom:20px}
 .by{margin-top:22px;font-size:13.5px;color:var(--muted)}
+.alink{color:var(--ink-2);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--hair)}
 
 /* 구역 */
 .sec{margin-top:72px}
@@ -96,8 +97,7 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 
 /* 작품 상세 */
 .back{display:inline-flex;align-items:center;gap:8px;margin:30px 0 0;
- padding:8px 0;color:var(--muted);font-size:11px;
- font-family:"IBM Plex Mono",monospace;letter-spacing:.1em}
+ padding:8px 0;color:var(--muted);font-size:14px;letter-spacing:.02em}
 .stage{margin-top:20px;padding:4px 0 32px;border-bottom:1px solid var(--hair);
  display:grid;place-items:center}
 .stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang))}

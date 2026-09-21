@@ -15,7 +15,7 @@
   --hang:0 4px 16px rgba(0,0,0,.55);
 }
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{margin:0;background:var(--wall);color:var(--ink);
+body{margin:0;word-break:keep-all;overflow-wrap:break-word;background:var(--wall);color:var(--ink);
  font-family:"IBM Plex Sans KR",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
  font-weight:300;line-height:1.85;padding-inline:24px;padding-block:0 72px}
 .wrap{max-width:1000px;margin:0 auto}

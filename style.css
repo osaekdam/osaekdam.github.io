@@ -100,7 +100,24 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
  padding:8px 0;color:var(--muted);font-size:14px;letter-spacing:.02em}
 .stage{margin-top:20px;padding:4px 0 32px;border-bottom:1px solid var(--hair);
  display:grid;place-items:center}
-.stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang))}
+.stage img{max-height:64vh;width:auto;object-fit:contain;filter:drop-shadow(var(--hang));cursor:zoom-in}
+/* 그림 크게 보기 */
+.zoom{position:fixed;inset:0;z-index:60;background:var(--wall);display:none;
+ overflow:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
+.zoom.on{display:block}
+.zoom .inner{min-height:100%;display:flex;align-items:center;justify-content:center;padding:12px}
+.zoom img{display:block;max-width:100%;height:auto;cursor:zoom-in}
+.zoom.big .inner{display:block;padding:0}
+.zoom.big img{max-width:none;width:250%;cursor:zoom-out}
+.zx{position:fixed;z-index:61;top:calc(12px + env(safe-area-inset-top));right:14px;
+ width:44px;height:44px;border-radius:50%;border:1px solid var(--hair);background:var(--card);
+ color:var(--ink);font-size:19px;line-height:1;display:none;place-items:center}
+.zoom.on ~ .zx{display:grid}
+.zhint{position:fixed;z-index:61;left:50%;transform:translateX(-50%);transition:opacity .35s ease;
+ bottom:calc(20px + env(safe-area-inset-bottom));background:var(--card);
+ border:1px solid var(--hair);border-radius:999px;padding:7px 15px;
+ font-size:12.5px;color:var(--muted);display:none;pointer-events:none}
+.zoom.on ~ .zhint{display:block}
 .stage .soon{height:240px}
 .pair{width:min(96%, calc(56vh * var(--r)));aspect-ratio:var(--r);
  display:flex;gap:2.4%;align-items:stretch;justify-content:center;flex-wrap:nowrap}
@@ -131,19 +148,36 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .spec dt{flex:0 0 52px;font-size:10.5px;color:var(--muted);
  font-family:"IBM Plex Mono",monospace;letter-spacing:.1em;padding-top:3px}
 .spec dd{margin:0;color:var(--ink-2);font-variant-numeric:tabular-nums}
-.audio{display:flex;gap:12px;margin-top:30px}
-.play{flex:0 1 260px;display:flex;align-items:center;justify-content:center;gap:11px;
- padding:17px 16px;border:1px solid var(--ink);background:none;color:var(--ink);
- font-size:14px;transition:background .2s ease,color .2s ease}
+/* 아래에 붙어 따라다니는 조작 막대 — 음성과 이전·다음을 늘 손 닿는 곳에 둔다 */
+.dock{position:fixed;left:0;right:0;bottom:0;z-index:40;
+ background:var(--card);border-top:1px solid var(--hair);
+ box-shadow:0 -2px 14px rgba(20,19,15,.07);
+ padding:8px 12px calc(8px + env(safe-area-inset-bottom))}
+.dock-in{max-width:720px;margin:0 auto;display:flex;align-items:center;gap:8px}
+@media (prefers-color-scheme:dark){.dock{box-shadow:0 -2px 14px rgba(0,0,0,.4)}}
+.bar{position:absolute;inset:0 0 auto 0;height:2px;background:var(--hair)}
+.fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--ink);transition:width .2s linear}
+.step{flex:0 0 auto;display:flex;align-items:center;gap:6px;padding:10px 12px;
+ font-size:13px;color:var(--ink-2);max-width:32vw;white-space:nowrap;overflow:hidden;
+ text-overflow:ellipsis;border-radius:6px}
+.step:hover{color:var(--ink);background:var(--wall-2)}
+.step.off{visibility:hidden}
+.step .t{display:none}
+@media (min-width:600px){.step .t{display:inline}}
+.play{flex:1 1 auto;display:flex;align-items:center;justify-content:center;gap:10px;
+ padding:13px 14px;border:1px solid var(--ink);border-radius:6px;background:none;
+ color:var(--ink);font-size:14px;min-height:46px;
+ transition:background .2s ease,color .2s ease}
 .play:hover{background:var(--ink);color:var(--wall)}
 .play:hover .tri{border-left-color:var(--wall)}
 .play:hover .sq{background:var(--wall)}
+.play[hidden]{display:none}
 .tri{width:0;height:0;border-left:10px solid var(--ink);
  border-top:6.5px solid transparent;border-bottom:6.5px solid transparent;
  transition:border-left-color .2s ease}
 .sq{width:11px;height:11px;background:var(--ink);transition:background .2s ease}
-.bar{margin-top:14px;height:3px;background:var(--hair);position:relative;overflow:hidden}
-.fill{position:absolute;inset:0 auto 0 0;width:0;background:var(--ink);transition:width .2s linear}
+.tm{font-variant-numeric:tabular-nums;font-size:12.5px;color:var(--muted);
+ font-family:"IBM Plex Mono",monospace}
 .note{margin-top:12px;font-size:12.5px;color:var(--muted);min-height:1.3em}
 .body{margin-top:34px}
 .body p{margin:0 0 17px;font-size:17px;color:var(--ink-2);line-height:1.9;max-width:62ch}
@@ -156,6 +190,7 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .nav span{color:var(--muted)}
 footer{margin-top:60px;padding-top:20px;border-top:1px solid var(--hair);
  font-size:12.5px;color:var(--muted)}
+body.dk{padding-block:0 104px}
 @media (max-width:430px){
   header{padding-top:44px}
   .frame{height:195px}

@@ -6,7 +6,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@300;400;500&family=IBM+Plex+Mono:wght@400&display=swap">
 <link rel="stylesheet" href="style.css">
-</head><body>
+<meta name="description" content="꽃들이 둥글게 화면을 감싸 돌고 가운데는 넉넉하게 비워두었습니다. 그 빈자리로 나비 세 마리가 날아듭니다.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="오색담은 제3회 초대전">
+<meta property="og:title" content="화접지희 · 이미경">
+<meta property="og:description" content="꽃들이 둥글게 화면을 감싸 돌고 가운데는 넉넉하게 비워두었습니다. 그 빈자리로 나비 세 마리가 날아듭니다.">
+<meta property="og:image" content="https://osaekdam.github.io/img/w58.jpg">
+<meta property="og:url" content="https://osaekdam.github.io/w58.html">
+<meta name="twitter:card" content="summary_large_image">
+</head><body class="dk">
 <div class="wrap narrow">
   <a class="back" href="index.html">← 출품작 목록</a>
   <div class="stage"><img src="img/w58.jpg" alt="화접지희"></div>
@@ -15,10 +23,6 @@
   
   <div class="d-artist">이미경</div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채·봉채</dd></div><div><dt>크기</dt><dd>70 × 70 cm</dd></div></dl>
-  <div class="audio" id="au" hidden>
-    <button class="play" id="pb"><span class="tri" id="ic"></span><span class="lb">음성 해설</span></button>
-  </div>
-  <div class="bar" id="bar" hidden><div class="fill" id="fill"></div></div>
   <p class="note" id="note"></p>
   <audio id="ak" preload="none" src="audio/58.mp3"></audio>
   <div class="body"><p>꽃들이 둥글게 화면을 감싸 돌고 가운데는 넉넉하게 비워두었습니다. 그 빈자리로 나비 세 마리가 날아듭니다.</p><p>한 바퀴 둘러보면 계절이 모두 들어 있습니다. 노란 개나리와 붉은 석류꽃, 흰 수국과 보랏빛 붓꽃, 수선화와 동백, 분홍 해당화, 그리고 가운데 크게 핀 분홍 모란입니다.</p><p>꽃과 나비를 함께 그리면 좋은 인연과 기쁨을 뜻합니다. 철이 다른 꽃을 한자리에 모은 것은, 좋은 일이 계절을 가리지 않고 이어지기를 바라는 마음입니다.</p><p>꽃잎 한 장과 나비 날개의 무늬까지 가는 붓으로 올렸습니다. 가까이서 보시기를 권합니다.</p></div>
@@ -35,18 +39,60 @@
   <div class="nav"><a href="w57.html">← 화람도</a><a href="w59.html">옥당부귀도 →</a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
+<div class="dock">
+  <div class="bar"><div class="fill" id="fill"></div></div>
+  <div class="dock-in">
+    <a class="step" href="w57.html" aria-label="이전 작품 화람도"><span>←</span><span class="t">화람도</span></a>
+    <button class="play" id="pb" hidden><span class="tri" id="ic"></span><span class="lb">음성 해설</span><span class="tm" id="tm"></span></button>
+    <a class="step" href="w59.html" aria-label="다음 작품 옥당부귀도"><span class="t">옥당부귀도</span><span>→</span></a>
+  </div>
+</div>
+<div class="zoom" id="zm"><div class="inner"><img id="zi" alt=""></div></div>
+<button class="zx" id="zx" type="button" aria-label="닫기">✕</button>
+<div class="zhint" id="zh">한 번 더 누르면 크게 보입니다</div>
 <script>
 (function(){
-  var a=document.getElementById('ak'), box=document.getElementById('au');
+  /* 그림 크게 보기 */
+  var zm=document.getElementById('zm'), zi=document.getElementById('zi');
+  var zx=document.getElementById('zx'), zh=document.getElementById('zh'), ht;
+  function open(src){
+    zi.src=src; zm.classList.add('on'); zm.classList.remove('big');
+    document.body.style.overflow='hidden'; zm.scrollTop=0; zm.scrollLeft=0;
+    clearTimeout(ht); zh.textContent='한 번 더 누르면 크게 보입니다';
+    zh.style.opacity='1'; ht=setTimeout(function(){ zh.style.opacity='0'; },2200);
+  }
+  function close(){ zm.classList.remove('on','big'); document.body.style.overflow=''; }
+  Array.prototype.forEach.call(document.querySelectorAll('.stage img'),function(im){
+    im.addEventListener('click',function(){ open(im.currentSrc||im.src); });
+  });
+  zi.addEventListener('click',function(e){
+    e.stopPropagation();
+    var big=zm.classList.toggle('big');
+    if(big){
+      zm.scrollLeft=(zm.scrollWidth-zm.clientWidth)/2;
+      zm.scrollTop=(zm.scrollHeight-zm.clientHeight)/2;
+      clearTimeout(ht); zh.textContent='손가락으로 밀어 보세요';
+      zh.style.opacity='1'; ht=setTimeout(function(){ zh.style.opacity='0'; },2200);
+    } else { zm.scrollTop=0; zm.scrollLeft=0; }
+  });
+  zm.addEventListener('click',close);
+  zx.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+
+  var a=document.getElementById('ak');
   var b=document.getElementById('pb'), ic=document.getElementById('ic');
-  var lb=b.querySelector('.lb'), bar=document.getElementById('bar');
+  var lb=b.querySelector('.lb'), tm=document.getElementById('tm');
   var fill=document.getElementById('fill'), note=document.getElementById('note');
-  a.addEventListener('error',function(){ box.hidden=true; });
-  a.addEventListener('loadedmetadata',function(){ box.hidden=false; });
+  function mmss(s){ s=Math.max(0,Math.round(s));
+    return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+  a.addEventListener('error',function(){ b.hidden=true; });
+  a.addEventListener('loadedmetadata',function(){
+    b.hidden=false; if(a.duration) tm.textContent=mmss(a.duration);
+  });
   a.load();
   function state(on){
     lb.textContent=on?'멈추기':'음성 해설';
-    ic.className=on?'sq':'tri'; bar.hidden=!on;
+    ic.className=on?'sq':'tri';
   }
   b.onclick=function(){
     if(a.paused){
@@ -55,10 +101,32 @@
     } else { a.pause(); state(false); }
   };
   a.addEventListener('timeupdate',function(){
-    if(a.duration) fill.style.width=(a.currentTime/a.duration*100)+'%';
+    if(a.duration){
+      fill.style.width=(a.currentTime/a.duration*100)+'%';
+      tm.textContent=mmss(a.duration-a.currentTime);
+    }
   });
-  a.addEventListener('ended',function(){ state(false); fill.style.width='0'; });
+  a.addEventListener('ended',function(){
+    state(false); fill.style.width='0';
+    if(a.duration) tm.textContent=mmss(a.duration);
+  });
   a.addEventListener('pause',function(){ state(false); });
+  /* 잠금화면·이어폰에서도 조작할 수 있게 */
+  if('mediaSession' in navigator){
+    try{
+      navigator.mediaSession.metadata=new MediaMetadata({
+        title:"화접지희",
+        artist:"이미경",
+        album:"오색담은 제3회 초대전"
+      });
+      navigator.mediaSession.setActionHandler('play',function(){ b.click(); });
+      navigator.mediaSession.setActionHandler('pause',function(){ a.pause(); });
+      navigator.mediaSession.setActionHandler('seekbackward',function(){
+        a.currentTime=Math.max(0,a.currentTime-10); });
+      navigator.mediaSession.setActionHandler('seekforward',function(){
+        a.currentTime=Math.min(a.duration||0,a.currentTime+10); });
+    }catch(e){}
+  }
 
   var fb=document.getElementById('fb');
   if(fb) fb.onclick=function(){

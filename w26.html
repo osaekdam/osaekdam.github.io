@@ -16,12 +16,12 @@
 <meta name="twitter:card" content="summary_large_image">
 </head><body class="dk">
 <div class="wrap narrow">
-  <a class="back" href="index.html">← 출품작 목록</a>
+  <a class="back" href="index.html"><svg class="ar ar-l" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>출품작 목록</a>
   <div class="stage"><img src="img/w26.jpg" alt="화접도(백합과 나비)"></div>
-  <div class="d-no mono">NO. 26</div>
+  <div class="d-no">26</div>
   <div class="d-title">화접도(백합과 나비)</div>
   
-  <div class="d-artist">김은미</div>
+  <div class="d-artist"><a class="a-link" href="index.html?a=%EA%B9%80%EC%9D%80%EB%AF%B8">김은미 작품 모아보기<svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
   <dl class="spec"><div><dt>재료</dt><dd>순지에 분채</dd></div><div><dt>크기</dt><dd>31.5 × 31.5 cm</dd></div></dl>
   <p class="note" id="note"></p>
   <audio id="ak" preload="none" src="audio/26.mp3"></audio>
@@ -36,15 +36,17 @@
       <p class="ok" id="fo"></p>
     </div>
   </details>
-  <div class="nav"><a href="w25.html">← 화훼도 (4폭)</a><a href="w27.html">금강산도 →</a></div>
+  <div class="nav"><a href="w25.html"><svg class="ar ar-l" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12H5M11 6l-6 6 6 6"/></svg>화훼도 (4폭)</a><a href="w27.html">금강산도<svg class="ar" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a></div>
   <footer>오색담은 제3회 초대전 · 민화, 오색의 휴식</footer>
 </div>
 <div class="dock">
-  <div class="bar"><div class="fill" id="fill"></div></div>
   <div class="dock-in">
-    <a class="step" href="w25.html" aria-label="이전 작품 화훼도 (4폭)"><span>←</span><span class="t">화훼도 (4폭)</span></a>
-    <button class="play" id="pb" hidden><span class="tri" id="ic"></span><span class="lb">음성 해설</span><span class="tm" id="tm"></span></button>
-    <a class="step" href="w27.html" aria-label="다음 작품 금강산도"><span class="t">금강산도</span><span>→</span></a>
+    <a class="step" href="w25.html" aria-label="이전 작품 화훼도 (4폭)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg><span class="t">화훼도 (4폭)</span></a>
+    <button class="play" id="pb" type="button" hidden>
+      <span class="pc"><svg viewBox="0 0 42 42" aria-hidden="true"><circle class="rbg" cx="21" cy="21" r="19"/><circle class="rfg" id="rfg" cx="21" cy="21" r="19"/></svg><span class="tri" id="ic"></span></span>
+      <span class="ptx"><span class="lb">음성 해설</span><span class="tm" id="tm"></span></span>
+    </button>
+    <a class="step" href="w27.html" aria-label="다음 작품 금강산도"><span class="t">금강산도</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></a>
   </div>
 </div>
 <div class="zoom" id="zm"><div class="inner"><img id="zi" alt=""></div></div>
@@ -82,7 +84,8 @@
   var a=document.getElementById('ak');
   var b=document.getElementById('pb'), ic=document.getElementById('ic');
   var lb=b.querySelector('.lb'), tm=document.getElementById('tm');
-  var fill=document.getElementById('fill'), note=document.getElementById('note');
+  var rfg=document.getElementById('rfg'), note=document.getElementById('note');
+  var CIRC=2*Math.PI*19;
   function mmss(s){ s=Math.max(0,Math.round(s));
     return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
   a.addEventListener('error',function(){ b.hidden=true; });
@@ -102,12 +105,12 @@
   };
   a.addEventListener('timeupdate',function(){
     if(a.duration){
-      fill.style.width=(a.currentTime/a.duration*100)+'%';
+      rfg.style.strokeDashoffset=String(CIRC*(1-a.currentTime/a.duration));
       tm.textContent=mmss(a.duration-a.currentTime);
     }
   });
   a.addEventListener('ended',function(){
-    state(false); fill.style.width='0';
+    state(false); rfg.style.strokeDashoffset=String(CIRC);
     if(a.duration) tm.textContent=mmss(a.duration);
   });
   a.addEventListener('pause',function(){ state(false); });

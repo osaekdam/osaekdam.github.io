@@ -35,7 +35,7 @@
   <section class="sec">
     <div class="sec-h"><h2>출품작</h2><span id="count"></span></div>
     <div class="who" id="who">
-      <button type="button" data-who="" aria-pressed="true">전체</button><button type="button" data-who="이유리">이유리</button><button type="button" data-who="오경숙">오경숙</button><button type="button" data-who="장환비">장환비</button><button type="button" data-who="유소희">유소희</button><button type="button" data-who="손미선">손미선</button><button type="button" data-who="김은미">김은미</button><button type="button" data-who="임영희">임영희</button><button type="button" data-who="박정윤">박정윤</button><button type="button" data-who="차은정">차은정</button><button type="button" data-who="조남희">조남희</button><button type="button" data-who="김송희">김송희</button><button type="button" data-who="김영금">김영금</button><button type="button" data-who="정진화">정진화</button><button type="button" data-who="유미화">유미화</button><button type="button" data-who="이미경">이미경</button>
+      <button type="button" data-who="" aria-pressed="true">전체</button><button type="button" data-who="이유리">이유리</button><button type="button" data-who="김송희">김송희</button><button type="button" data-who="김영금">김영금</button><button type="button" data-who="김은미">김은미</button><button type="button" data-who="박정윤">박정윤</button><button type="button" data-who="손미선">손미선</button><button type="button" data-who="오경숙">오경숙</button><button type="button" data-who="유미화">유미화</button><button type="button" data-who="유소희">유소희</button><button type="button" data-who="이미경">이미경</button><button type="button" data-who="임영희">임영희</button><button type="button" data-who="장환비">장환비</button><button type="button" data-who="정진화">정진화</button><button type="button" data-who="조남희">조남희</button><button type="button" data-who="차은정">차은정</button>
     </div>
     <p class="share" id="share"><span id="shtx"></span>
       <button type="button" id="shbtn">주소 복사</button></p>
@@ -58,6 +58,13 @@
 
   <footer>작품 구입 문의는 갤러리 데스크로 말씀해 주세요.</footer>
 </div>
+<button class="bgm" id="bgm" type="button" aria-pressed="false" aria-label="음악 켜기">
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>
+    <path class="wave" d="M21.5 7.5c1 1.4 1 3.6 0 5"/>
+  </svg>
+</button>
+<audio id="bga" src="audio/bgm.mp3" preload="none" loop></audio>
 <script>
 (function(){
   var grid=document.getElementById('grid'), cnt=document.getElementById('count');
@@ -100,6 +107,38 @@
       document.body.removeChild(t);
     }
   };
+
+  /* 음악 — 켜는 분만 듣는다. 작품 페이지로 가면 저절로 멈춘다 */
+  (function(){
+    var bt=document.getElementById('bgm'), au=document.getElementById('bga');
+    if(!bt||!au) return;
+    var fade=null;
+    function slide(to,ms,after){
+      clearInterval(fade); var from=au.volume, t0=Date.now();
+      fade=setInterval(function(){
+        var k=Math.min(1,(Date.now()-t0)/ms);
+        au.volume=from+(to-from)*k;
+        if(k>=1){ clearInterval(fade); if(after) after(); }
+      },40);
+    }
+    function mark(on){
+      bt.setAttribute('aria-pressed', on?'true':'false');
+      bt.setAttribute('aria-label', on?'음악 끄기':'음악 켜기');
+      try{ sessionStorage.setItem('bgm', on?'1':'0'); }catch(e){}
+    }
+    function start(){
+      au.volume=0;
+      return au.play().then(function(){ slide(0.55,1200); mark(true); });
+    }
+    function stop(){ slide(0,700,function(){ au.pause(); }); mark(false); }
+    bt.onclick=function(){
+      if(au.paused) start().catch(function(){ mark(false); });
+      else stop();
+    };
+    /* 작품을 보고 돌아왔을 때 이어서 */
+    var was=''; try{ was=sessionStorage.getItem('bgm')||''; }catch(e){}
+    if(was==='1') start().catch(function(){ mark(false); });
+  })();
 
   var init='';
   try{ init=new URLSearchParams(location.search).get('a')||''; }catch(e){}

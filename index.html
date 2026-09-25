@@ -62,7 +62,7 @@
   <svg viewBox="0 0 24 24" aria-hidden="true">
     <path d="M9 18V6l10-2v12"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="16.5" cy="16" r="2.5"/>
     <path class="wave" d="M21.5 7.5c1 1.4 1 3.6 0 5"/>
-  </svg>
+  </svg><span class="bl" id="bgl">음악 켜기</span>
 </button>
 <audio id="bga" src="audio/bgm.mp3" preload="none" loop></audio>
 <script>
@@ -121,9 +121,11 @@
         if(k>=1){ clearInterval(fade); if(after) after(); }
       },40);
     }
+    var bl=document.getElementById('bgl');
     function mark(on){
       bt.setAttribute('aria-pressed', on?'true':'false');
       bt.setAttribute('aria-label', on?'음악 끄기':'음악 켜기');
+      if(bl) bl.textContent = on?'음악 끄기':'음악 켜기';
       try{ sessionStorage.setItem('bgm', on?'1':'0'); }catch(e){}
     }
     function start(){

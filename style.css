@@ -137,13 +137,14 @@ h1{font-family:"Noto Serif KR",serif;font-weight:500;
 .guide{margin:22px 0 0;font-size:14.5px;color:var(--ink-2);max-width:56ch}
 /* 첫 화면 음악 — 기본은 꺼둔다. 켜는 분만 듣는다 */
 .bgm{position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:45;
- width:46px;height:46px;border-radius:50%;border:1px solid var(--hair);
- background:var(--card);color:var(--muted);display:grid;place-items:center;
- box-shadow:0 1px 6px rgba(20,19,15,.07);transition:color .2s ease,border-color .2s ease}
-.bgm svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.4;
- stroke-linecap:round;stroke-linejoin:round}
-.bgm:hover{color:var(--ink-2)}
-.bgm[aria-pressed="true"]{color:var(--accent);border-color:var(--accent)}
+ height:42px;padding:0 15px 0 13px;border-radius:999px;border:1px solid currentColor;
+ background:var(--card);color:var(--ink-2);display:inline-flex;align-items:center;gap:8px;
+ font:inherit;font-size:13.5px;letter-spacing:-.01em;cursor:pointer;
+ box-shadow:0 2px 12px rgba(20,19,15,.16);transition:color .2s ease,background .2s ease}
+.bgm svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.4;
+ stroke-linecap:round;stroke-linejoin:round;flex:none}
+.bgm:hover{color:var(--ink)}
+.bgm[aria-pressed="true"]{color:var(--accent)}
 .bgm .wave{opacity:0}
 .bgm[aria-pressed="true"] .wave{opacity:1;animation:bw 2.2s ease-in-out infinite}
 @keyframes bw{0%,100%{opacity:.35}50%{opacity:1}}
